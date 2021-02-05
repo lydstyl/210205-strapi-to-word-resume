@@ -1,0 +1,1 @@
+Création de CV Word à partir d'une API REST et du CMS Strapi
