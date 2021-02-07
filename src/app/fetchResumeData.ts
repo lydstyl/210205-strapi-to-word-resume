@@ -1,23 +1,23 @@
 require('isomorphic-fetch')
 
-interface About {
+export interface About {
   title: string
   description: string
   goal: string
   published_at: string
 }
 
-interface Skill {
+export interface Skill {
   name: string
   score: number
   labels: Array<Label>
 }
 
-interface Label {
+export interface Label {
   name: string
 }
 
-interface Experience {
+export interface Experience {
   title: string
   company: string
   begin: string
@@ -25,23 +25,23 @@ interface Experience {
   description: string
 }
 
-interface Education {
+export interface Education {
   title: string
   begin: string
   end: string
   description: string
 }
 
-interface Certificat {
+export interface Certificat {
   name: string
   url: string
 }
 
-interface Interest {
+export interface Interest {
   name: string
 }
 
-interface ResumeData {
+export interface ResumeData {
   about: About
   skills: Array<Skill>
   experiences: Array<Experience>
@@ -68,6 +68,7 @@ export async function fetchResumeData(
     return Promise.resolve(data.data)
   } catch (error) {
     console.log('🚀 ~ fetchResumeData ~ error', error)
+
     Promise.reject(error)
   }
 }

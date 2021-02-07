@@ -64,6 +64,22 @@
 // // buf is a nodejs buffer, you can either write it to a file or do anything else with it.
 // fs.writeFileSync(path.resolve(__dirname, 'output.docx'), buf)
 
-export function makeWordResume(resumeData: any, resumeTemplate): void {
-  console.log('xxxxxx')
+import {
+  About,
+  Skill,
+  Label,
+  Experience,
+  Education,
+  Certificat,
+  Interest,
+  ResumeData,
+} from './fetchResumeData'
+
+export function makeWordResume(
+  resumeData: ResumeData,
+  resumeTemplate: string,
+): void {
+  // const test: About = resumeData.about
+
+  console.log('🚀 ~ resumeData', resumeData)
 }
