@@ -42,6 +42,7 @@ export interface Interest {
 }
 
 export interface ResumeData {
+  date: string
   about: About
   skills: Array<Skill>
   experiences: Array<Experience>

@@ -47,7 +47,6 @@ const RESUME_DATA_QUERY = `query {
     'https://gabriel-brun-resume-backend.herokuapp.com/graphql',
     RESUME_DATA_QUERY,
   )
-  console.log('🚀 ~ resumeData', resumeData)
 
   makeWordResume(resumeData, 'resume-template.docx')
 })()
