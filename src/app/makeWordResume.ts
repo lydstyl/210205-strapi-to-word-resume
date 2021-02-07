@@ -102,6 +102,15 @@ function formateDates(resumeData) {
   return resumeData
 }
 
+function capitalizeCertificats(resumeData) {
+  resumeData.interests = resumeData.interests.map((interest) => ({
+    ...interest,
+    name: interest.name.charAt(0).toUpperCase() + interest.name.slice(1),
+  }))
+
+  return resumeData
+}
+
 // The error object contains additional information when logged with JSON.stringify (it contains a properties object containing all suberrors).
 function replaceErrors(key, value) {
   if (value instanceof Error) {
@@ -142,6 +151,8 @@ export function makeWordResume(
   resumeData = filterOtherSkills(resumeData)
 
   resumeData = formateDates(resumeData)
+
+  resumeData = capitalizeCertificats(resumeData)
 
   //Load the docx file as a binary
   const content = fs.readFileSync(
