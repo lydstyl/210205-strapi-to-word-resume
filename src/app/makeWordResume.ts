@@ -1,9 +1,10 @@
-const PizZip = require('pizzip')
 const Docxtemplater = require('docxtemplater')
+
+import PizZip = require('pizzip')
 import * as dayjs from 'dayjs'
 
-const fs = require('fs')
-const path = require('path')
+import fs = require('fs')
+import path = require('path')
 
 import {
   // About,
@@ -73,30 +74,33 @@ function addOtherSkills(resumeData) {
   return resumeData
 }
 
-// function formateDates(resumeData) {
-//   resumeData.date = dayjs().format('DD/MM/YYYY')
-//   resumeData.experience = resumeData.experience.map((e) => ({
-//     ...e,
-//     begin: dayjs(e.begin).format('DD/MM/YYYY'),
-//     end: dayjs(e.end).format('DD/MM/YYYY'),
-//   }))
+function filterOtherSkills(resumeData) {
+  resumeData.otherSkills = resumeData.otherSkills.filter((s) => {
+    if (s.score >= 6) {
+      return true
+    }
+    return false
+  })
 
-//   return resumeData
-// }
+  return resumeData
+}
 
-// function filterOtherSkills(resumeData) {
-//   resumeData.skills.other = resumeData.skills.other.filter((s) => {
-//     const rate = /([0-9])\//gm.exec(s.title)[1]
+function formateDates(resumeData) {
+  resumeData.date = dayjs().format('DD/MM/YYYY')
+  resumeData.experiences = resumeData.experiences.map((e) => ({
+    ...e,
+    begin: dayjs(e.begin).format('DD/MM/YYYY'),
+    end: dayjs(e.end).format('DD/MM/YYYY'),
+  }))
 
-//     if (rate >= 6) {
-//       return true
-//     }
+  resumeData.educations = resumeData.educations.map((e) => ({
+    ...e,
+    begin: dayjs(e.begin).format('DD/MM/YYYY'),
+    end: dayjs(e.end).format('DD/MM/YYYY'),
+  }))
 
-//     return false
-//   })
-
-//   return resumeData
-// }
+  return resumeData
+}
 
 // The error object contains additional information when logged with JSON.stringify (it contains a properties object containing all suberrors).
 function replaceErrors(key, value) {
@@ -129,17 +133,15 @@ export function makeWordResume(
   resumeData: ResumeData,
   resumeTemplate: string,
 ): void {
-  resumeData.date = dayjs().format('DD-MM-YYYY')
-
   resumeData = addMainSkills(resumeData)
 
   resumeData = addStarsToMainSkills(resumeData)
 
   resumeData = addOtherSkills(resumeData)
 
-  // resumeData = filterOtherSkills(resumeData)
+  resumeData = filterOtherSkills(resumeData)
 
-  // resumeData = formateDates(resumeData)
+  resumeData = formateDates(resumeData)
 
   //Load the docx file as a binary
   const content = fs.readFileSync(
@@ -173,5 +175,7 @@ export function makeWordResume(
   const buf = doc.getZip().generate({ type: 'nodebuffer' })
 
   // buf is a nodejs buffer, you can either write it to a file or do anything else with it.
-  fs.writeFileSync(path.resolve(__dirname, 'output.docx'), buf)
+  const fileName = 'CV Gabriel Brun développeur React.docx'
+  fs.writeFileSync(path.resolve(__dirname, fileName), buf)
+  console.log(`CV généré à ici : ${__dirname}/${fileName}`)
 }
