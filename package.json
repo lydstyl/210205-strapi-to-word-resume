@@ -36,6 +36,7 @@
     "eslint-scope": "^5.1.1",
     "eslint-utils": "^2.1.0",
     "eslint-visitor-keys": "^2.0.0",
+    "isomorphic-fetch": "^3.0.0",
     "mime-types": "^2.1.28",
     "node-fetch": "^2.6.1",
     "pizzip": "^3.0.6"
