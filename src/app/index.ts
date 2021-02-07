@@ -1,4 +1,4 @@
-const fetch = require('node-fetch')
+require('isomorphic-fetch')
 
 export function hello(name: string): string {
   return `Hello ${name}`
@@ -17,8 +17,6 @@ export async function getSkills() {
 }
 
 export async function fetchResumeData() {
-  require('isomorphic-fetch')
-
   fetch('https://gabriel-brun-resume-backend.herokuapp.com/graphql', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -70,4 +68,5 @@ export async function fetchResumeData() {
     .then((res) => console.log(res.data))
 }
 
+// getSkills()
 fetchResumeData()
