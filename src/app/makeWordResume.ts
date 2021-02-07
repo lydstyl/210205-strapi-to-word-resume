@@ -16,6 +16,88 @@ import {
   ResumeData,
 } from './fetchResumeData'
 
+function addMainSkills(resumeData) {
+  resumeData.mainSkills = resumeData.skills.filter((s) => {
+    let isMain = false
+    s.labels.forEach((l) => {
+      if (l.name === 'main skill') {
+        isMain = true
+      }
+    })
+
+    if (isMain) {
+      return true
+    } else {
+      return false
+    }
+  })
+
+  return resumeData
+}
+
+function addStarsToMainSkills(resumeData) {
+  resumeData.mainSkills = resumeData.mainSkills.map((s) => {
+    let fullStars = s.score
+    s.stars = ''
+    for (let i = 0; i < 10; i++) {
+      if (fullStars < 1) {
+        s.stars += '☆'
+      } else {
+        s.stars += '★'
+      }
+      fullStars--
+    }
+
+    return s
+  })
+
+  return resumeData
+}
+
+function addOtherSkills(resumeData) {
+  resumeData.otherSkills = resumeData.skills.filter((s) => {
+    let isOther = false
+    s.labels.forEach((l) => {
+      if (l.name === 'other') {
+        isOther = true
+      }
+    })
+
+    if (isOther) {
+      return true
+    } else {
+      return false
+    }
+  })
+
+  return resumeData
+}
+
+// function formateDates(resumeData) {
+//   resumeData.date = dayjs().format('DD/MM/YYYY')
+//   resumeData.experience = resumeData.experience.map((e) => ({
+//     ...e,
+//     begin: dayjs(e.begin).format('DD/MM/YYYY'),
+//     end: dayjs(e.end).format('DD/MM/YYYY'),
+//   }))
+
+//   return resumeData
+// }
+
+// function filterOtherSkills(resumeData) {
+//   resumeData.skills.other = resumeData.skills.other.filter((s) => {
+//     const rate = /([0-9])\//gm.exec(s.title)[1]
+
+//     if (rate >= 6) {
+//       return true
+//     }
+
+//     return false
+//   })
+
+//   return resumeData
+// }
+
 // The error object contains additional information when logged with JSON.stringify (it contains a properties object containing all suberrors).
 function replaceErrors(key, value) {
   if (value instanceof Error) {
@@ -48,6 +130,16 @@ export function makeWordResume(
   resumeTemplate: string,
 ): void {
   resumeData.date = dayjs().format('DD-MM-YYYY')
+
+  resumeData = addMainSkills(resumeData)
+
+  resumeData = addStarsToMainSkills(resumeData)
+
+  resumeData = addOtherSkills(resumeData)
+
+  // resumeData = filterOtherSkills(resumeData)
+
+  // resumeData = formateDates(resumeData)
 
   //Load the docx file as a binary
   const content = fs.readFileSync(
