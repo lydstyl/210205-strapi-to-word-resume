@@ -188,7 +188,7 @@ export function makeWordResume(
   let doc
 
   try {
-    doc = new Docxtemplater(zip)
+    doc = new Docxtemplater(zip, { linebreaks: true })
   } catch (error) {
     // Catch compilation errors (errors caused by the compilation of the template : misplaced tags)
     errorHandler(error)
@@ -196,6 +196,7 @@ export function makeWordResume(
 
   //set the templateVariables
   console.log('🚀 ~ resumeData', resumeData)
+
   doc.setData(resumeData)
 
   try {
@@ -210,6 +211,8 @@ export function makeWordResume(
 
   // buf is a nodejs buffer, you can either write it to a file or do anything else with it.
   const fileName = 'CV Gabriel Brun développeur React.docx'
+
   fs.writeFileSync(path.resolve(__dirname, fileName), buf)
+
   console.log(`CV généré à ici : ${__dirname}/${fileName}`)
 }
