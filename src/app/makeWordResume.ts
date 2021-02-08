@@ -138,6 +138,21 @@ function errorHandler(error) {
   throw error
 }
 
+function removeInvalidDate(resumeData) {
+  resumeData.experiences = resumeData.experiences.map((xp) => {
+    if (xp.end !== 'Invalid Date') {
+      xp.hasEnd = true
+    }
+    return xp
+  })
+
+  return resumeData
+}
+
+// function sortExperiences(resumeData) {
+//   return resumeData.experiences.sort()
+// }
+
 export function makeWordResume(
   resumeData: ResumeData,
   resumeTemplate: string,
@@ -153,6 +168,10 @@ export function makeWordResume(
   resumeData = formateDates(resumeData)
 
   resumeData = capitalizeCertificats(resumeData)
+
+  resumeData = removeInvalidDate(resumeData)
+
+  // resumeData = sortExperiences(resumeData)
 
   //Load the docx file as a binary
   const content = fs.readFileSync(
