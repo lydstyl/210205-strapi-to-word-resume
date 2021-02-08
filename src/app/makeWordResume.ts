@@ -149,9 +149,13 @@ function removeInvalidDate(resumeData) {
   return resumeData
 }
 
-// function sortExperiences(resumeData) {
-//   return resumeData.experiences.sort()
-// }
+function sortExperiences(resumeData) {
+  resumeData.experiences = resumeData.experiences.sort((a, b) => {
+    return dayjs(b.begin).isAfter(dayjs(a.begin)) ? 1 : -1
+  })
+
+  return resumeData
+}
 
 export function makeWordResume(
   resumeData: ResumeData,
@@ -165,13 +169,13 @@ export function makeWordResume(
 
   resumeData = filterOtherSkills(resumeData)
 
+  resumeData = sortExperiences(resumeData)
+
   resumeData = formateDates(resumeData)
 
   resumeData = capitalizeCertificats(resumeData)
 
   resumeData = removeInvalidDate(resumeData)
-
-  // resumeData = sortExperiences(resumeData)
 
   //Load the docx file as a binary
   const content = fs.readFileSync(
