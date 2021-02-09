@@ -89,14 +89,14 @@ function formateDates(resumeData) {
   resumeData.date = dayjs().format('DD/MM/YYYY')
   resumeData.experiences = resumeData.experiences.map((e) => ({
     ...e,
-    begin: dayjs(e.begin).format('DD/MM/YYYY'),
-    end: dayjs(e.end).format('DD/MM/YYYY'),
+    begin: dayjs(e.begin).format('MM/YYYY'),
+    end: dayjs(e.end).format('MM/YYYY'),
   }))
 
   resumeData.educations = resumeData.educations.map((e) => ({
     ...e,
-    begin: dayjs(e.begin).format('DD/MM/YYYY'),
-    end: dayjs(e.end).format('DD/MM/YYYY'),
+    begin: dayjs(e.begin).format('MM/YYYY'),
+    end: dayjs(e.end).format('MM/YYYY'),
   }))
 
   return resumeData
