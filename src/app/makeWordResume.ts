@@ -2,6 +2,7 @@ const Docxtemplater = require('docxtemplater')
 
 import PizZip = require('pizzip')
 import * as dayjs from 'dayjs'
+import shell = require('shelljs')
 
 import fs = require('fs')
 import path = require('path')
@@ -215,4 +216,6 @@ export function makeWordResume(
   fs.writeFileSync(path.resolve(__dirname, fileName), buf)
 
   console.log(`CV généré à ici : ${__dirname}/${fileName}`)
+
+  shell.exec('./cpCVToWebSite.sh')
 }
