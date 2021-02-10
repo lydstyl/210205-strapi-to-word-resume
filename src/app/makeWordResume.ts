@@ -7,17 +7,6 @@ import shell = require('shelljs')
 import fs = require('fs')
 import path = require('path')
 
-import {
-  // About,
-  // Skill,
-  // Label,
-  // Experience,
-  // Education,
-  // Certificat,
-  // Interest,
-  ResumeData,
-} from './fetchResumeData'
-
 function addMainSkills(resumeData) {
   resumeData.mainSkills = resumeData.skills.filter((s) => {
     let isMain = false
@@ -158,10 +147,25 @@ function sortExperiences(resumeData) {
   return resumeData
 }
 
+function createZip(resumeTemplate: string) {
+  //Load the docx file as a binary
+  const content = fs.readFileSync(
+    path.resolve(__dirname, resumeTemplate),
+    'binary',
+  )
+
+  const zip = new PizZip(content)
+  return zip
+}
+
 export function makeWordResume(
-  resumeData: ResumeData,
-  resumeTemplate: string,
+  // resumeData: ResumeData,
+  // resumeTemplate: string,
+  options,
 ): void {
+  let { resumeData } = options
+  const { resumeTemplate, copyResumeToWebFolder } = options
+
   resumeData = addMainSkills(resumeData)
 
   resumeData = addStarsToMainSkills(resumeData)
@@ -178,35 +182,34 @@ export function makeWordResume(
 
   resumeData = removeInvalidDate(resumeData)
 
-  //Load the docx file as a binary
-  const content = fs.readFileSync(
-    path.resolve(__dirname, resumeTemplate),
-    'binary',
-  )
+  const zip = createZip(resumeTemplate)
 
-  const zip = new PizZip(content)
+  function createDoc(resumeData) {
+    let doc
 
-  let doc
+    try {
+      doc = new Docxtemplater(zip, { linebreaks: true })
+    } catch (error) {
+      // Catch compilation errors (errors caused by the compilation of the template : misplaced tags)
+      errorHandler(error)
+    }
 
-  try {
-    doc = new Docxtemplater(zip, { linebreaks: true })
-  } catch (error) {
-    // Catch compilation errors (errors caused by the compilation of the template : misplaced tags)
-    errorHandler(error)
+    //set the templateVariables
+    console.log('🚀 ~ resumeData', resumeData)
+
+    doc.setData(resumeData)
+
+    try {
+      // render the document (replace all occurences of {first_name} by John, {last_name} by Doe, ...)
+      doc.render()
+      return doc
+    } catch (error) {
+      // Catch rendering errors (errors relating to the rendering of the template : angularParser throws an error)
+      errorHandler(error)
+    }
   }
 
-  //set the templateVariables
-  console.log('🚀 ~ resumeData', resumeData)
-
-  doc.setData(resumeData)
-
-  try {
-    // render the document (replace all occurences of {first_name} by John, {last_name} by Doe, ...)
-    doc.render()
-  } catch (error) {
-    // Catch rendering errors (errors relating to the rendering of the template : angularParser throws an error)
-    errorHandler(error)
-  }
+  const doc = createDoc(resumeData)
 
   const buf = doc.getZip().generate({ type: 'nodebuffer' })
 
@@ -217,5 +220,9 @@ export function makeWordResume(
 
   console.log(`CV généré à ici : ${__dirname}/${fileName}`)
 
-  shell.exec('./cpCVToWebSite.sh')
+  if (copyResumeToWebFolder) {
+    shell.exec('./cpCVToWebSite.sh')
+
+    console.log('CV copié dans le dossier du site web.')
+  }
 }

@@ -1,5 +1,6 @@
 import { fetchResumeData } from './fetchResumeData'
 import { makeWordResume } from './makeWordResume'
+import { Options } from './fetchResumeData'
 
 const RESUME_DATA_QUERY = `query {
   about {
@@ -48,7 +49,13 @@ const RESUME_DATA_QUERY = `query {
     RESUME_DATA_QUERY,
   )
 
-  makeWordResume(resumeData, 'resume-template.docx')
+  const OPTIONS: Options = {
+    resumeData,
+    resumeTemplate: '../templates/izyfreelance.docx',
+    copyResumeToWebFolder: false,
+  }
+
+  makeWordResume(OPTIONS)
 })()
 
 export function hello(name: string): string {

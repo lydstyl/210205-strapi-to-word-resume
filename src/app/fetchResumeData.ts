@@ -51,6 +51,12 @@ export interface ResumeData {
   interests: Array<Interest>
 }
 
+export interface Options {
+  resumeData: ResumeData
+  resumeTemplate: string
+  copyResumeToWebFolder: boolean
+}
+
 export async function fetchResumeData(
   url: string,
   query: string,
