@@ -1,0 +1,58 @@
+{#educations}
+{end}
+{title}
+{/educations}
+
+
+{#certificats}{date} {name} 
+{url}
+{/certificats}
+
+
+{#pro}
+{title}
+{begin} {end}
+{company}
+{projectname}
+{shortdescription}
+{#tasks}
+{task}{/tasks}
+{#skills}{name}   {/skills}
+
+{/pro}
+
+
+
+
+{#perso}
+{title}
+{shortdescription}
+{#tasks}
+{task}{/tasks}
+{#skills}{name}   {/skills}
+
+{/perso}
+
+
+
+{#skills}{name} / {/skills}
+
+
+{#mainSkills}- {stars} {name}
+{/mainSkills}
+{#otherSkills}- {name} {/otherSkills}
+
+
+
+Christophe,
+
+J'ai adapté mon script dans les grandes lignes pour générer le CV ci-joint.
+Tu peux trouver les données d'origine ici si tu connais GraphQL : https://gabriel-brun-resume-backend.herokuapp.com/graphql
+
+Etant sur Linux, je n'ai pas Word et c'est galère d'utiliser les tableaux dans un .docx avec Libre Office + le script donc j'ai du faire des modifications du template. En gros le script fonctionne bien avec les experiences mais moins bien avec les autres tableaux.
+
+Je te laisse jetter un oeil et faire tes changements si besoin.
+
+J'attends ton descriptif avec si possible le nom du client avant de te donner mon go pour envoyer le CV.
+
+Bon week-end
