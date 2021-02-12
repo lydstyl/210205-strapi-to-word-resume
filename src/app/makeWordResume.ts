@@ -16,6 +16,8 @@ import {
   errorHandler,
 } from './utils'
 
+import { addProAndPersoExperience } from './addProAndPersoExperience'
+
 function createDoc(zip, resumeData) {
   let doc
 
@@ -27,7 +29,7 @@ function createDoc(zip, resumeData) {
   }
 
   //set the templateVariables
-  console.log('🚀 ~ resumeData', resumeData)
+  // console.log('🚀 ~ resumeData', resumeData.educations)
 
   doc.setData(resumeData)
 
@@ -81,6 +83,8 @@ export function makeWordResume(
   resumeData = capitalizeCertificats(resumeData)
 
   resumeData = removeInvalidDate(resumeData)
+
+  resumeData = addProAndPersoExperience(resumeData)
 
   const zip = createZip(resumeTemplate)
 

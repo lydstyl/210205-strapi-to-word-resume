@@ -24,6 +24,17 @@ const RESUME_DATA_QUERY = `query {
     begin
     end
     description
+    labels {
+      name
+    }
+    shortdescription
+    projectname
+    tasks {
+      task
+    }
+    skills {
+      name
+    }
   }
   
   educations {
@@ -36,6 +47,7 @@ const RESUME_DATA_QUERY = `query {
   certificats {
     name
     url
+    date
   }
   
   interests {
@@ -51,7 +63,7 @@ const RESUME_DATA_QUERY = `query {
 
   const OPTIONS: Options = {
     resumeData,
-    resumeTemplate: '../templates/izyfreelance.docx',
+    resumeTemplate: '../templates/faceelit.docx',
     copyResumeToWebFolder: false,
   }
 

@@ -85,6 +85,11 @@ export function formateDates(resumeData) {
     end: dayjs(e.end).format('MM/YYYY'),
   }))
 
+  resumeData.certificats = resumeData.certificats.map((c) => ({
+    ...c,
+    date: dayjs(c.begin).format('MM/YYYY'),
+  }))
+
   return resumeData
 }
 
