@@ -63,7 +63,8 @@ const RESUME_DATA_QUERY = `query {
 
   const OPTIONS: Options = {
     resumeData,
-    resumeTemplate: '../templates/faceelit.docx',
+    // resumeTemplate: '../templates/faceelit.docx',
+    resumeTemplate: '../templates/sii.docx',
     copyResumeToWebFolder: false,
   }
 
