@@ -16,6 +16,8 @@ import {
   errorHandler,
 } from './utils'
 
+import addWithLabel from './utils/addWithLabel'
+
 import { addProAndPersoExperience } from './addProAndPersoExperience'
 
 function createDoc(zip, resumeData) {
@@ -67,6 +69,8 @@ export function makeWordResume(
 ): void {
   let { resumeData } = options
   const { resumeTemplate, copyResumeToWebFolder } = options
+
+  resumeData = addWithLabel(resumeData, 'skills', ['other'])
 
   resumeData = addMainSkills(resumeData)
 
