@@ -16,7 +16,7 @@ import {
   errorHandler,
 } from './utils'
 
-import addWithLabel from './utils/addWithLabel'
+import { sortSkills, addWithLabel } from './utils/addWithLabel'
 
 import { addProAndPersoExperience } from './addProAndPersoExperience'
 
@@ -69,8 +69,18 @@ export function makeWordResume(
 ): void {
   let { resumeData } = options
   const { resumeTemplate, copyResumeToWebFolder } = options
+  resumeData = sortSkills(resumeData)
 
-  resumeData = addWithLabel(resumeData, 'skills', ['other'])
+  resumeData = addWithLabel(resumeData, 'skills', ['web_tech'])
+  resumeData = addWithLabel(resumeData, 'skills', ['framework'])
+  resumeData = addWithLabel(resumeData, 'skills', ['tool'])
+  resumeData = addWithLabel(resumeData, 'skills', ['method'])
+  resumeData = addWithLabel(resumeData, 'skills', ['programming_language'])
+  resumeData = addWithLabel(resumeData, 'skills', ['language'])
+  resumeData = addWithLabel(resumeData, 'skills', ['sgbd'])
+  resumeData = addWithLabel(resumeData, 'skills', ['job'])
+
+  // console.log('🚀 ~ resumeData', resumeData)
 
   resumeData = addMainSkills(resumeData)
 

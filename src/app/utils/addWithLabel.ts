@@ -1,4 +1,4 @@
-export default function addWithLabel(
+export function addWithLabel(
   data,
   content: string,
   labelsToKeep: Array<string>,
@@ -20,6 +20,14 @@ export default function addWithLabel(
   const dataNameToAdd = content + '_' + labelsToKeep.join('_')
 
   data[dataNameToAdd] = dataToAdd
+
+  return data
+}
+
+export function sortSkills(data) {
+  data.skills = data.skills.sort((a, b) => b.score - a.score)
+
+  // console.log(data.skills)
 
   return data
 }
