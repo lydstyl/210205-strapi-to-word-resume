@@ -12,8 +12,9 @@ Du coup quand je modifie une donnée de mon CV sur mon CMS, la page CV de mon po
 
 # Comment lancer le script
 
- * cd dans le dossier qui contient ce README.MD puis faire un npm i
- * si besoin, modifier le template resume-template.docx à votre sauce
- * si besoin, ajuster le script node à votre sauce
- * vérifier que le script shell cpCVToWebSite.sh contient le bon chemin pour ajouter le CV en .docx et en .pdf dans le bon dossier
- * lancer le script via npm start
+- cd dans le dossier qui contient ce README.MD
+- npm i
+- si besoin, modifier le template default-resume-template.docx à votre sauce
+- si besoin, ajuster le script node à votre sauce en particulier le OPTIONS.resumeTemplate dans index.ts
+- vérifier que le script shell cpCVToWebSite.sh contient le bon chemin pour ajouter le CV en .docx et en .pdf dans le bon dossier
+- lancer le script via npm start
