@@ -8,6 +8,7 @@ const RESUME_DATA_QUERY = `query {
     description
     goal
     published_at
+    availability
   }
   
   skills{

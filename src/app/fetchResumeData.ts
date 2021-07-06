@@ -5,6 +5,7 @@ export interface About {
   description: string
   goal: string
   published_at: string
+  availability: string
 }
 
 export interface Skill {
